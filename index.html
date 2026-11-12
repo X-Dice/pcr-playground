@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="调温度、换聚合酶、跑一组梯度。在彩色虚拟实验室里探索 PCR 的产量与特异性。">
+  <meta name="theme-color" content="#f6efe1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; connect-src 'none'; font-src 'self'; object-src 'none'; base-uri 'self'">
+  <title>PCR Playground｜小小 PCR 研究所</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23f4aa71'/%3E%3Cpath d='M22 12v31a10 10 0 0020 0V12M18 12h28M23 32h18' fill='none' stroke='%232b4749' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body data-theme="toy">
+  <a class="skip-link" href="#controls">跳到实验设置</a>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="PCR Playground 首页"><span class="brand-mark" aria-hidden="true">✳</span><span class="brand-copy"><strong>PCR Playground</strong><small>小小 PCR 研究所</small></span></a>
+    <div class="header-actions"><span class="edition-label">INTERACTIVE SCIENCE · VOL. 01</span><button id="theme-toggle" class="theme-toggle" type="button">切换漫画手账</button><a class="about-link" href="#model-note">模型说明 ↗</a></div>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy"><p class="eyebrow">A LITTLE LAB. A BIG WHAT IF.</p><h1 id="page-title">把好奇心，<br>放进一支<span>试管里。</span></h1><p class="hero-desc">温度差一点，结果会怎样？<br>转动旋钮，跑一组 PCR，找到产量与特异性的平衡。</p><div class="hero-badges"><span>六管温度梯度</span><span>可重复的教学模拟</span><span>无需登录</span></div></div>
+      <div class="hero-note" aria-hidden="true"><span class="note-tape"></span><span class="note-star">✧</span><p>今日研究课题</p><strong>更多 DNA<br>＝ 更好的结果？</strong><span class="note-arrow">往下做个实验 ↙</span></div>
+    </section>
+    <div class="onboarding"><span><b>01</b> 运行一组示例</span><span><b>02</b> 只改一个变量</span><span><b>03</b> 看图，比较，想一想</span><small>先观察，再下结论。</small></div>
+    <section id="lab-bench" class="lab-shell" aria-label="PCR 实验工作台">
+      <div class="lab-topbar"><div class="mode-tabs" role="group" aria-label="实验模式"><button type="button" data-mode="gradient" aria-pressed="true">温度梯度 <small>GRADIENT</small></button><button type="button" data-mode="free" aria-pressed="false">自由探索 <small>EXPLORE</small></button></div><span class="lab-tag">LAB BENCH / 01</span></div>
+      <div class="lab-layout">
+        <form id="controls" class="controls">
+          <div class="control-group"><label class="field-head" for="sample">选择虚拟样本 <span>01</span></label><select id="sample" name="sample" class="sample-select" data-key="sample"><option value="clean">标准样本 · 清晰目标</option><option value="mixed">挑战样本 · 容易出现杂带</option><option value="low">微量样本 · 较少起始模板</option></select><p class="hint" id="sample-hint"></p></div>
+          <div class="control-group"><div class="field-head">聚合酶 Polymerase <span>02</span></div><div id="enzyme-options" class="enzyme-grid" role="group" aria-label="聚合酶"></div><p class="hint" id="enzyme-hint"></p></div>
+          <div id="gradient-fields" class="control-group"><div class="field-head">退火温度梯度 <span>03</span></div><div class="field-row"><label>起点 °C<input class="number-input" type="number" name="gradientMin" data-key="gradientMin" min="40" max="79" step="0.5" required></label><span class="field-divider">→</span><label>终点 °C<input class="number-input" type="number" name="gradientMax" data-key="gradientMax" min="41" max="80" step="0.5" required></label></div><p class="hint">同一样本，六种温度。其他条件保持一致。</p></div>
+          <div id="free-fields" class="control-group" hidden><label class="field-head" for="temperature">退火温度 Annealing <output id="temperature-value"></output></label><div class="range-row"><input id="temperature" type="range" data-key="temperature" min="40" max="80" step="0.5"><input class="number-input compact" type="number" name="temperature" data-key="temperature" min="40" max="80" step="0.5" required aria-label="退火温度，摄氏度"></div><p class="hint">引物能否结合，与当前引物和酶配置有关。</p></div>
+          <div class="control-group"><label class="field-head" for="cycles">循环数 Cycles <output id="cycles-value"></output></label><div class="range-row"><input id="cycles" type="range" data-key="cycles" min="0" max="45" step="1"><input class="number-input compact" type="number" name="cycles" data-key="cycles" min="0" max="45" step="1" required aria-label="循环数"></div><p class="hint">循环更多，产量也会逐渐遇到平台期。</p></div>
+          <details class="advanced-panel"><summary>进阶设置 <span>＋</span></summary><label>初始模板量（相对单位）<input class="number-input" name="template" data-key="template" type="number" min="0" max="10000" step="1" required></label><label>目标片段长度（bp）<input class="number-input" name="length" data-key="length" type="number" min="100" max="5000" step="10" required></label><label>引物参考 Tm（°C）<input class="number-input" name="primerTm" data-key="primerTm" type="number" min="45" max="80" step="0.5" required></label><label>随机种子 Seed<input class="number-input" name="seed" data-key="seed" type="number" min="0" max="4294967295" step="1" required></label><p class="hint">教学用虚拟引物；Tm 不是通用最佳退火温度。固定种子使结果可重复。</p></details>
+          <div class="run-actions"><button class="primary-btn" id="run" type="submit"><span aria-hidden="true">▶</span> 运行实验</button><button class="secondary-btn" id="repeat" type="button" title="保持实验条件，换一个随机种子">换种子，模拟重复 ↻</button></div><p id="status" class="status-note" role="status"></p>
+        </form>
+        <div class="scene-area"><div class="scene-caption"><span id="scene-caption">你的实验台已准备好</span><span class="simulation-stamp">教学模拟</span></div><div id="scene" class="scene-frame"></div><div class="scene-tools"><span id="phase-text" role="status">先运行，再观察各组的差异。</span><div><label>速度 <select id="speed" aria-label="动画速度"><option value="1">1×</option><option value="3">3×</option></select></label><button id="skip" type="button" class="secondary-btn" hidden>跳过动画</button><label class="reduce-label"><input id="reduce-motion" type="checkbox"> 减少动画</label></div></div><div class="bench-tip"><span aria-hidden="true">✦</span> 点击一支试管，曲线与胶图会一起高亮。<small>插画表现过程，数据来自统一模型。</small></div></div>
+      </div>
+    </section>
+    <section id="results" class="results-section" aria-labelledby="results-title"><div class="section-heading"><div><p class="eyebrow">THE OBSERVATION DESK</p><h2 id="results-title">结果，会说些什么？</h2><p id="result-subtitle"></p></div><div class="export-actions"><button class="secondary-btn" id="export-csv" type="button">CSV 数据 ↓</button><button class="secondary-btn" id="export-png" type="button">结果图片 ↓</button><button class="secondary-btn" id="export-json" type="button">保存配置 ↓</button><button class="secondary-btn" id="import-json" type="button">打开配置 ↑</button><input id="file-input" type="file" accept="application/json,.json" hidden></div></div>
+      <p class="result-context" id="result-context"></p>
+      <div id="run-selector" class="run-selector" role="group" aria-label="选择结果组"></div>
+      <div class="results-grid"><article class="chart-panel"><div class="chart-head"><h3>每一轮的变化 <small>Amplification</small></h3><span>模型推演 · 相对量</span></div><div id="amplification-chart"></div><div class="chart-legend"><span class="target-key">━ 目标产物</span><span class="off-key">┄ 非特异产物</span><span class="dimer-key">┈ 引物二聚体</span></div></article><article class="gel-panel"><div class="chart-head"><h3>把结果“跑”出来 <small>Simulated gel</small></h3><span>教学模拟胶图</span></div><div id="gel-chart"></div><p class="hint">各组使用相同的显示曝光。亮度显示模拟 DNA 量，不能用于判断序列是否正确。</p></article><article class="chart-panel"><div class="chart-head"><h3>温度改变了什么？ <small>Trade-off</small></h3><span>产量 × 特异性</span></div><div id="temperature-chart"></div><div class="chart-legend"><span class="target-key">━ 目标相对产量</span><span class="purity-key">┄ 目标产物占比 %</span></div></article><article class="summary-panel"><div class="chart-head"><h3>这一管的实验笔记</h3><span id="selected-temperature"></span></div><div id="metrics" class="metric-grid"></div><div id="explanation" class="explanation"></div><p class="hint">目标占比按模拟 DNA 量计算。产量与占比是两个不同指标。</p></article></div>
+    </section>
+    <section class="history-section" aria-labelledby="history-title"><div class="section-heading"><div><p class="eyebrow">YOUR LITTLE DISCOVERIES</p><h2 id="history-title">留下一次发现。</h2><p>完成的实验会保存在当前浏览器。勾选两次，比较你改变了什么。</p></div><span id="history-count"></span></div><div id="history-list" class="history-list"></div><div id="comparison" class="comparison"></div></section>
+    <details id="model-note" class="model-note"><summary>打开模型说明与科学参考 <span>↗</span></summary><div><h3>一座帮助理解趋势的教学实验室</h3><p>这里使用虚拟样本、经验系数和有限容量增长模型。目标产物、预设非特异产物和二聚体竞争同一反应容量；温度影响结合与延伸效率。显示的是统一尺度的相对量，尚未用真实实验数据校准。</p><p>酶与缓冲液影响退火条件；热启动、保真性和产量分别描述不同特性。教学曲线不是实测 qPCR，模拟胶图也不是实际实验照片。</p><p>参考：<a href="https://www.neb.com/en-gb/faqs/how-should-i-determine-the-appropriate-annealing-temperature-for-my-reaction" target="_blank" rel="noopener noreferrer">NEB · 退火温度</a> / <a href="https://www.neb.com/en/applications/dna-amplification-pcr-and-qpcr/specialty-pcr/hot-start-pcr" target="_blank" rel="noopener noreferrer">NEB · 热启动</a> / <a href="https://www.thermofisher.com/us/en/home/life-science/cloning/cloning-learning-center/invitrogen-school-of-molecular-biology/pcr-education/pcr-reagents-enzymes/pcr-cycling-considerations.html" target="_blank" rel="noopener noreferrer">Thermo Fisher · 循环与平台期</a></p></div></details>
+  </main>
+  <footer class="footer"><a class="brand" href="#page-title">✳ PCR Playground</a><p>给每一个“如果……会怎样”留一张实验台。</p><span>原创插画 · 浏览器内计算 · MIT</span></footer>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <noscript>这个实验室需要启用 JavaScript 才能计算模拟结果。</noscript>
+</body>
+</html>
