@@ -1,6 +1,6 @@
 # PCR Playground
 
-[简体中文](README.zh-CN.md) · [Asset credits](docs/ASSETS.md) · [Verification](docs/VERIFICATION.md)
+[Try the live lab](https://x-dice.github.io/pcr-playground/) · [简体中文](README.zh-CN.md) · [Asset credits](docs/ASSETS.md) · [Verification](docs/VERIFICATION.md)
 
 An interactive PCR teaching simulation. Change a few settings, watch a small illustrated lab react, and compare how the model distributes **relative yield** between target product, nonspecific product, and primer dimers.
 
@@ -43,7 +43,7 @@ Use a real experiment and appropriate controls to test an experimental conclusio
 
 ## Deployment
 
-The repository contains a GitHub Pages workflow. Once the repository exists, select **GitHub Actions** as the Pages source in repository settings. A push to `main`, or a manual **Deploy Pages** run, checks the model, builds `dist/`, and deploys the artifact.
+The live demo is deployed with GitHub Pages. For your own fork, select **GitHub Actions** as the Pages source in repository settings. A push to `main`, or a manual **Deploy Pages** run, checks the model, builds `dist/`, and deploys the artifact.
 
 Source repository: [X-Dice/pcr-playground](https://github.com/X-Dice/pcr-playground). Deployment status is recorded in the verification log.
 

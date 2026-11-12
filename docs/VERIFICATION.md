@@ -35,5 +35,9 @@ History settings are recomputed under the current model; the UI marks version ch
 ## Publication
 
 - Independent public repository exists: https://github.com/X-Dice/pcr-playground
-- Source upload, GitHub Actions and public Pages deployment: pending verification.
-- Private Sites preview: pending publication.
+- Source published at commit `0b8215aba624fee6c6d5c22c60e399bb39a0da1d`.
+- GitHub Check run [43241617368](https://github.com/X-Dice/pcr-playground/actions/runs/43241617368) succeeded.
+- Pages build and deploy run [43241617332](https://github.com/X-Dice/pcr-playground/actions/runs/43241617332) succeeded.
+- Public URL: https://x-dice.github.io/pcr-playground/
+- The public page loaded its modules, styles and scene from the repository subpath. A gradient run completed, recorded history and selecting 66°C updated the shared metrics and low-product explanation. No console errors were reported in this online smoke check.
+- A separate owner-private Sites preview was also deployed successfully. Public sharing uses the GitHub Pages URL above.

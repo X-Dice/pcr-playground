@@ -1,6 +1,6 @@
 # PCR Playground
 
-[English](README.md) · [素材说明](docs/ASSETS.md) · [验证记录](docs/VERIFICATION.md)
+[在线体验](https://x-dice.github.io/pcr-playground/) · [English](README.md) · [素材说明](docs/ASSETS.md) · [验证记录](docs/VERIFICATION.md)
 
 一个可以边玩边理解 PCR 的教学模拟程序。改变条件，观察插画实验室和曲线如何变化，比较**目标产物、非特异产物、引物二聚体**三类产物的相对产量。
 
@@ -41,7 +41,7 @@ npm run build
 
 ## 部署
 
-项目提供 GitHub Pages 工作流。仓库创建后，在仓库设置中将 Pages 来源设为 **GitHub Actions**。推送到 `main` 或手动运行 **Deploy Pages**，会检查模型、构建 `dist/` 并部署。
+在线演示已通过 GitHub Pages 发布。部署自己的副本时，在仓库设置中将 Pages 来源设为 **GitHub Actions**。推送到 `main` 或手动运行 **Deploy Pages**，会检查模型、构建 `dist/` 并部署。
 
 候选仓库名为 `X-Dice/pcr-playground`。本文不代表公开仓库或在线部署已经创建。
 
